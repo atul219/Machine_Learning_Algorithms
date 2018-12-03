@@ -40,10 +40,12 @@ testing_data_label = testing_data_label/testing_data_label.max(axis = 0)
 
 no_features = len(training_data_feature.T)
 
+#__________Random Weights__________
 weights = np.random.randn(1,4)
 weights_default = np.random.randn(1)
 
 
+#__________Predict Function__________
 def predict(weights_default,weights,data):
     z = np.zeros(len(data))
     for i in range(0 , len(data)):
@@ -51,19 +53,23 @@ def predict(weights_default,weights,data):
     z = z.reshape(len(data) , 1)
     return z
 
+
+#__________Cost Function__________
 def cost(weights_default,weights,data,data_label):
     diff = np.square(predict(weights_default,weights,data) - data_label)
     cost = np.mean(diff)/2
     
     return cost
 
+
+#__________Derivative Function__________
 def derivative(weights_default,weights,training_data_feature):
     slope = np.mean((predict(weights_default,weights,training_data_feature) - training_data_label)*training_data_feature , axis = 0)
     intercept = np.mean((predict(weights_default,weights,training_data_feature) - training_data_label))
     
     return slope , intercept
 
-
+#__________=Gradient Function__________
 def gradient(weights_default,weights,training_data_feature):
     
     learning_rate = 0.01
