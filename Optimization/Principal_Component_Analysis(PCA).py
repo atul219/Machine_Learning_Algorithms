@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Dec 13 00:40:58 2018
+
+@author: Atul
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Sep 20 23:55:18 2018
 
 @author: Atul
@@ -8,11 +15,11 @@ Created on Thu Sep 20 23:55:18 2018
 #PCA
 
 import numpy as np
-# 40 is variable and 1000 is the sample
-A = np.random.random((40,1000))
+import pandas as pd
+A = np.random.random((1000,40))
 
 
-cov_B = np.cov(A)  # covariance of matrix
+cov_B = np.cov(A , rowvar = 0)  # covariance of matrix
 
 eigen_val,eigen_vec = np.linalg.eig(cov_B)  # eigen values and eigen vectors
 
@@ -43,10 +50,35 @@ a=a[0]
 
 # important eigen vectors 
 imp_eigvec = sorted_eigvec[:,0:a+1]
-mul_mat=imp_eigvec.transpose()
 
-# convert new data with reduced variable
-new_data=np.matmul(mul_mat,A)
+new_data = np.zeros([1000,40])
 
+# append old data value into new data after appying pca 
+for i in range(0,35):
+    new_data[:,index_eigval[i]] = A[:,index_eigval[i]]
+    
+ # convert new data into dataframe   
+new_data = pd.DataFrame(new_data)
+
+# replace 0 by nan and drop nan
+new_data = new_data.replace(0,np.nan)  
+new_data = new_data.dropna(axis = 1) 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
